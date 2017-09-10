@@ -18,5 +18,6 @@
         break;
     }
   }
-  echo $m * 2 * ONE_DAY_SECOND;
+#  echo $m * 2 * ONE_DAY_SECOND;
+  echo $m * ONE_DAY_SECOND;
 ?>
