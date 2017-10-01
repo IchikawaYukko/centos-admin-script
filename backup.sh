@@ -38,16 +38,17 @@ if [ "$1" = "diff" ] ; then
 	ARCHIVER="bzip2 -9"
 	EXT=bz2
 fi
+BACKUP_FILENAME=NC$3_$1_`date +%Y%m%d`.dump.$EXT
 
-/sbin/dump $DUMP_LEVEL - /dev/mapper/conoha-backup_snap -h 0 2>> $BACKUP_LOG | ${ARCHIVER} > $BACKUP_DIR/NC$3_$1_`date +%m%d`.dump.$EXT
+/sbin/dump $DUMP_LEVEL - /dev/mapper/conoha-backup_snap -h 0 2>> $BACKUP_LOG | ${ARCHIVER} > $BACKUP_DIR/$BACKUP_FILENAME
 
-#	/sbin/dump -1uf - /dev/mapper/conoha-backup_snap -h 1 2>> $BACKUP_LOG | /usr/bin/bzip2 -9 | swift upload --object-name system/NC$3_diff_$(date +%m%d).dump.bz2 Backup -
+#	/sbin/dump -1uf - /dev/mapper/conoha-backup_snap -h 1 2>> $BACKUP_LOG | /usr/bin/bzip2 -9 | swift upload --object-name system/$BACKUP_FILENAME Backup -
 
 # Remove snapshot.
 /sbin/lvremove -f /dev/conoha/backup_snap >> $BACKUP_LOG
 
 # Upload to Object Storage.
-/usr/bin/swift upload --object-name system/NC$3_$1_`date +%m%d`.dump.$EXT Backup $BACKUP_DIR/NC$3_$1_`date +%m%d`.dump.$EXT 1>&2 >> $BACKUP_LOG
+/usr/bin/swift upload --object-name system/$BACKUP_FILENAME Backup $BACKUP_DIR/$BACKUP_FILENAME 1>&2 >> $BACKUP_LOG
 
 # set Auto delete
-/usr/bin/swift post -H "X-Delete-After: $(php /root/scripts_git/hanoi-tower-backup.php)" Backup system/NC$3_$1_`date +%m%d`.dump.$EXT
+/usr/bin/swift post -H "X-Delete-After: $(php /root/scripts_git/hanoi-tower-backup.php)" Backup system/$BACKUP_FILENAME
