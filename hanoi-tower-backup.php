@@ -4,8 +4,7 @@
   if(isset($argv[1])) {
     $p = intval($argv[1]);
   } else {
-    $d = getdate();
-    $p = $d['mday'];
+    $p = intval(date("j"));
   }
 
   if($p == 1) {
@@ -18,6 +17,5 @@
         break;
     }
   }
-#  echo $m * 2 * ONE_DAY_SECOND;
-  echo $m * ONE_DAY_SECOND;
+  echo $m * 2 * ONE_DAY_SECOND;
 ?>
