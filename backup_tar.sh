@@ -11,7 +11,7 @@ BACKUP_DIR=/mnt/backup
 BACKUP_LOG=$BACKUP_DIR/backup_`date +%Y_week%U`.log
 CONTAINER=Backup
 FILENAME=NC$1_full_$(date +%Y%m%d).tar.bz2
-MAX_FILESIZE=5368709119
+MAX_FILESIZE=5368709120
 
 source /opt/rh/rh-php70/enable
 source ~yuriko/OpenStackAuth.sh
