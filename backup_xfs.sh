@@ -44,7 +44,7 @@ fi
 BACKUP_FILENAME=$(basename $2)_`date +%Y%m%d`.dump.$EXT
 
 # Do Backup
-xfsdump -e -l$DUMP_LEVEL - $2 2>> $BACKUP_LOG | ${ARCHIVER} > $BACKUP_DIR/$BACKUP_FILENAME
+/usr/sbin/xfsdump -e -l$DUMP_LEVEL - $2 2>> $BACKUP_LOG | ${ARCHIVER} > $BACKUP_DIR/$BACKUP_FILENAME
 
 # TODO Remove snapshot.
 #/sbin/lvremove -f /dev/conoha/backup_snap >> $BACKUP_LOG
