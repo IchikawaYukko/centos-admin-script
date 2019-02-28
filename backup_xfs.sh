@@ -6,7 +6,8 @@
 # ./backup.sh full|diff SourceDevice BackupFilename
 #
 
-BACKUP_DIR=/mnt/backup
+. $(dirname $0)/password.conf
+
 BACKUP_LOG=$BACKUP_DIR/backup_`date +%Y_week%U`.log
 #BACKUP_CONTAINER=Backup
 
