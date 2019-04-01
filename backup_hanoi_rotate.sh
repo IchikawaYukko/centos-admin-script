@@ -9,6 +9,6 @@ mkdir $BASEDIR/temp
 
 # When 1st day of the month, Handle backup as full backup.
 TODAY=$(date +%d)
-if [ $TODAY = "1" ]; then
+if [ $TODAY = "01" ]; then
   cp $BASEDIR/keep1day/* $BASEDIR/full-backup/
 fi
